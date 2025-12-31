@@ -7,8 +7,15 @@ const AdminUsers = () => {
   const [page, setPage] = useState(1);
 
   const fetchUsers = async (pageNumber) => {
-    const res = await api.get(`/admin/users?page=${pageNumber}`);
-    setUsers(res.data);
+    try {
+      const res = await api.get(`/admin/users?page=${pageNumber}`);
+      setUsers(res.data);
+    } catch (error) {
+      console.error(
+        "Fetch users failed:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   const toggleStatus = async (id, status) => {
