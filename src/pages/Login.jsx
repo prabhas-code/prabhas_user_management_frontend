@@ -3,68 +3,46 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import useAuth from "../auth/useAuth";
-import { toast } from "react-toastify";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [form, setForm] = useState({ email: "", password: "" });
 
   const submit = async (e) => {
     e.preventDefault();
-
-    try {
-      const res = await api.post("/auth/login", { email, password });
-      login(res.data.token, res.data.user);
-
-      toast.success("Login successful");
-
-      // Role-based redirect
-      if (res.data.user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/profile");
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Login failed");
-    }
+    const res = await api.post("/auth/login", form);
+    login(res.data.token, res.data.user);
+    navigate("/");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 to-purple-600">
-      <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Login
         </h2>
 
         <form onSubmit={submit} className="space-y-4">
           <input
-            type="email"
-            className="w-full px-4 py-2 border rounded-md"
+            className="w-full border p-3 rounded-lg"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
-
           <input
             type="password"
-            className="w-full px-4 py-2 border rounded-md"
+            className="w-full border p-3 rounded-lg"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
-
-          <button className="w-full bg-indigo-600 text-white py-2 rounded-md">
+          <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg">
             Login
           </button>
         </form>
 
         <p className="text-sm text-center mt-4">
           Don’t have an account?{" "}
-          <Link to="/signup" className="text-indigo-600">
+          <Link to="/signup" className="text-indigo-600 font-medium">
             Sign up
           </Link>
         </p>
