@@ -8,7 +8,11 @@ import Navbar from "./components/Navbar.jsx";
 import useAuth from "./auth/useAuth.js";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth();
+  const auth = useAuth();
+
+  if (!auth) return null; // ⬅️ VERY IMPORTANT
+  const { user } = auth;
+
   return user ? children : <Navigate to="/login" />;
 };
 
