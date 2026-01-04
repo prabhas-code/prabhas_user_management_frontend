@@ -4,10 +4,12 @@ import useAuth from "../auth/useAuth";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
+  const auth = useAuth(); // ✅ SAFE ACCESS
   const [open, setOpen] = useState(false);
 
-  if (!user) return null;
+  if (!auth || !auth.user) return null; // ✅ CRITICAL FIX
+
+  const { logout } = auth;
 
   return (
     <nav className="bg-indigo-600 text-white px-4 sm:px-6 py-4 shadow">

@@ -9,17 +9,16 @@ import useAuth from "./auth/useAuth.js";
 
 const ProtectedRoute = ({ children }) => {
   const auth = useAuth();
+  if (!auth) return null;
 
-  if (!auth) return null; // ⬅️ VERY IMPORTANT
-  const { user } = auth;
-
-  return user ? children : <Navigate to="/login" />;
+  return auth.user ? children : <Navigate to="/login" />;
 };
 
 const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
+
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

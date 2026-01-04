@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import useAuth from "../auth/useAuth";
+import Signup from "./Signup.jsx";
 
 const Login = () => {
   const { login } = useAuth();
@@ -35,7 +36,10 @@ const Login = () => {
             placeholder="Password"
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
-          <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg">
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg"
+          >
             Login
           </button>
         </form>
