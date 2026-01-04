@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Home from "./pages/Home";
-import InvoiceForm from "./pages/InvoiceForm";
-import Navbar from "./components/Navbar";
-import useAuth from "./auth/useAuth";
+import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
+import Home from "./pages/Home.jsx";
+import InvoiceForm from "./pages/InvoiceForm.jsx";
+import Navbar from "./components/Navbar.jsx";
+import useAuth from "./auth/useAuth.js";
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
