@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://prabhas-user-management-frontend.vercel.app",
+  baseURL: "https://usermanagement-backend-21jh.onrender.com",
 });
 
 api.interceptors.request.use((config) => {
